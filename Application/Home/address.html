@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>确认订单</title>
+<link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/mall.css" type="text/css" rel="stylesheet">
+<link href="css/LArea.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<ul class="oy-list table-list">
+	<li>
+		<span>收货人</span>
+		<i class="oy-txt"><input type="text" placeholder="名字"></i>
+	</li>
+	<li>
+		<span>手机号码</span>
+		<i class="oy-txt"><input type="tel" placeholder="11位手机号"></i>
+	</li>
+	<li>
+		<span>选择地区</span>
+		<i class="oy-txt">
+			<input id="area1" type="text" readonly="" placeholder="选择地区" class="ell">
+			<input id="value1" type="hidden">
+		</i>
+	</li>
+	<li>
+		<span>详细地址</span>
+		<i class="oy-txt"><input type="text" placeholder="街道门牌信息"></i>
+	</li>
+</ul>
+<div class="fixed-jf">
+	<button href="javascript:;" class="oy-btn oy-orange-btn w100" onclick="ShowAblock()" id="dui-btn">提交</button>
+</div>
+<!-- 弹框 -->
+<div id="alert-block" onclick="hideAblock()">
+  <div class="alertbox">
+    <div class="con">
+      <p id="alert-msg"></p>
+    </div>
+    <div class="op">
+      <a href="javascript:;" onclick="hideAblock()">确定</a>
+      <a href="#" onclick="hideAblock()">取消</a>
+    </div>
+  </div>
+  <div class="shade"></div>
+</div>
+
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/LAreaData1.js"></script>
+<script type="text/javascript" src="js/LAreaData2.js"></script>
+<script type="text/javascript" src="js/LArea.js"></script>
+<script>
+var area1 = new LArea();
+area1.init({
+	'trigger': '#area1',
+	'valueTo': '#value1',
+	'keys': {
+		id: 'id',
+		name: 'name'
+	},
+	'type': 1,
+	'data': LAreaData 
+});
+area1.value=[0,0];
+</script>
+
+<script>
+  var al = document.getElementById('alert-block');
+  var bm = document.getElementById('dui-btn');
+  var am = document.getElementById('alert-msg');
+	function ShowAblock(msg){
+		al.style.display="block";
+		am.innerHTML=msg;
+	}
+	function hideAblock(){
+		al.style.display="none";  
+		am.innerHTML='';
+	}
+</script>
+</body>
+</html>

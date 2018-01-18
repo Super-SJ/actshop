@@ -1,0 +1,9 @@
+<extend name="Public:base" />
+<block name="main">
+<form class="layui-form" action="__CONTROLLER__/test_action" method="post" enctype="multipart/form-data">
+    <input name="file[]" id="file" type="file" multiple>
+    <br>
+    <br>
+    <input class="layui-btn" type="submit" value="提交">
+</form>
+</block>

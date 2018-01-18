@@ -1,0 +1,48 @@
+/*
+	商家后台样式
+*/
+.my-banner{background:url(../images/sellerban.png) no-repeat center top;background-size:cover;height:13rem;margin:0 auto;position:relative;}
+.meb-person-data{text-align:center;padding-top:1.5rem}
+.meb-head{width:4rem;height:4rem;margin:0 auto .5rem;}
+.meb-head img{border-radius:50rem; width:4rem;height: 4rem; border:rgba(255,255,255,.5) solid 5px;}
+.meb-person-data .meb-name{font-size:.875rem;color:#fff;height:2.6rem; display:block;padding: 0 1rem;display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;justify-content: center;align-items: center;line-height: 1.3rem;}
+.meb-person-data p{font-size:.7rem;color:#fff;line-height:1rem; height:1rem; display:block;}
+
+/*subnav*/
+.subnav{  margin-bottom:1rem; background:#fff;}
+.subnav ul{display: table;width: 100%;}
+.subnav li{ width: 50%;display: table-cell;}
+.subnav li a{display:block;padding:1rem .5rem .5rem;text-align: center;border-right:#ccc solid 1px;border-bottom:#ccc solid 1px;}
+.subnav li:nth-child(2n) a{border-right:none;}
+.subnav li a span{display: block;text-align: center;font-size: .875rem;height: 2rem;line-height: 2rem;color: #000;}
+.subnav li i{display: inline-block;vertical-align: middle;width: 3rem;height: 3rem;background:url(../images/seller-ico.png) 0 0 no-repeat;background-size: 3rem;
+}
+.subnav li .i1{background-position:0 0;}
+.subnav li .i2{background-position:0 -6.8rem;}
+.subnav li .i3{background-position:0 -3.4rem;}
+.subnav li .i4{background-position:0 -10.2rem;}
+
+/* 商家登录 */
+.pink{background: #fdf3ee;}
+.login-box .logo{text-align: center;padding: 3rem 0 1rem;}
+.login-box .logo img{width:4rem;}
+.form-list{padding: 0 .5rem;}
+.form-list li{margin-bottom: .75rem;}
+.form-list li .f-text{width:100%;height:2.75rem;border:0;font-size:.9375rem;padding-left:.5rem;border:#ccc solid 1px;border-radius:50rem;background:url(../images/seller-ico.png) -0.2rem -17.9rem #fff no-repeat;background-size: 4rem;padding-left: 2.5rem;}
+.btn{display:block;width:100%;height:2.8125rem;line-height:2.8125rem;vertical-align:middle;text-align:center;font-size:1rem;color:#fff;background-color:#ff884c; border-radius:.3rem;border-radius:50rem;}
+.btn.disabled{background-color:#a8a8a8;color:#fff;border:1px solid #bababa}
+.form-list li .f-pwd{background-position: -0.2rem -20.3rem;}
+.form-list li .f-code{background-position: 0.2rem -16.7rem;background-size: 3rem;}
+
+.tip{position: fixed;left:50%;top: 50%;width: 12em; height: 3.4rem;margin: 0 0 -1.7rem -6rem;background: rgba(0,0,0,0.7);color: #fff;font:1rem/3.4rem "Microsoft YaHei";text-align: center;border-radius: .3rem;display: none;}
+/* 头部 */
+.common-header{height:2.6rem; width:100%; display:table;z-index:9999; padding:0 3rem;  position:relative;
+  background: -webkit-linear-gradient(35deg, #ff884c, #ff7460);
+  background: -o-linear-gradient(35deg, #ff884c, #ff7460);
+  background: -moz-linear-gradient(35deg, #ff884c, #ff7460);
+  background: linear-gradient(35deg, #ff884c, #ff7460);}
+.common-header .back{ height:2.6rem; width:2.6rem; position:absolute; left:0; bottom:0;color:#fff; font-size:1rem; line-height:3rem; text-align:center;}
+.common-header .back:active{ background-color:#fc4418;}
+.common-header .back i{ width:0.9rem; height:0.9rem;margin:1.1rem 0;vertical-align: top;border: solid #fff 3px;border-top: none; border-right: none;}
+.common-header .nei-tit{ height:2.6rem; font-size:1rem; color:#fff; line-height:2.6rem;text-align:center;text-overflow:ellipsis;white-space:nowrap; overflow:hidden;font-family: "Microsoft YaHei";}
+.common-header .right-ico{display:block; height:2.6rem; width:2.6rem; position:absolute; right:0; bottom:0;font-size:.875rem; color:#fff; line-height:2.6rem;text-align:center;}

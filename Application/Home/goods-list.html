@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>商品列表</title>
+<link href="css/layout.css" type="text/css" rel="stylesheet">
+<link href="css/mall.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="main-tab" id="main-tab">
+	<div class="tabli">
+		<ul>
+			 <li class="cur"><a href="javascript:;">最新上架</a></li>
+			 <li><a href="javascript:;">最后库存</a></li>
+			 <li><a href="javascript:;">热销商品</a></li>
+		 </ul>
+	 </div>
+	 <div id="wrapper" class="hastab" style="top:2.6rem;padding-top: .5rem">
+		<div class="tabcon">
+			<div id="pullDown">
+				<div class="refresh-box">
+					<span class="pullDownIcon loading-ico"></span>
+					<span class="pullDownLabel">下拉可以刷新</span>
+				</div>
+			</div>
+			<div id="tabBox1-bd">
+				<ul class="goods-list">
+					<li>
+						<a href="goods-detail.html">
+							<img src="images/photo.jpg">
+							<b>雨伞折叠抱枕一个</b>
+							<p>
+								<i class="orange-color">¥12元+388偶币</i>
+							</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/photo.jpg">
+							<b>雨伞折叠抱枕一个</b>
+							<p>
+								<i class="orange-color">¥12元+388偶币</i>
+							</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/photo.jpg">
+							<b>雨伞折叠抱枕一个</b>
+							<p>
+								<i class="orange-color">¥12元+388偶币</i>
+							</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/photo.jpg">
+							<b>雨伞折叠抱枕一个</b>
+							<p>
+								<i class="orange-color">¥12元+388偶币</i>
+							</p>
+						</a>
+					</li>
+				</ul>
+				<ul class="goods-list" style="display:none">
+					<li>
+						<a href="goods-detail.html">
+							<img src="images/goods2.jpg">
+							<b>雨伞折叠抱枕一个</b>
+							<p>
+								<i class="orange-color">¥12元+388偶币</i>
+							</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/photo.jpg">
+							<b>雨伞折叠抱枕一个</b>
+							<p>
+								<i class="orange-color">¥12元+388偶币</i>
+							</p>
+						</a>
+					</li>
+				</ul>
+				<ul class="goods-list" style="display:none">
+					<li>
+						<a href="goods-detail.html">
+							<img src="images/photo.jpg">
+							<b>雨伞折叠抱枕一个</b>
+							<p>
+								<i class="orange-color">¥12元+388偶币</i>
+							</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<p class="no-more" style="text-align: center;font-size: .75rem;height: 2rem;line-height: 2rem;color: #ccc;
+">已经全部加载完毕</p>
+			<div id="pullUp" style="display:none;">
+				<div class="refresh-box"> 
+					<span class="pullUpIcon loading-ico"></span>
+					<span class="pullUpLabel">上拉加载更多</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/TouchSlide.1.1.js"></script>
+<script type="text/javascript">
+TouchSlide({slideCell:"#main-tab",titCell:".tabli li",mainCell:"#tabBox1-bd",effect:"left",titOnClassName:'cur',
+	endFun:function(i){ 
+		$("#tabBox1-bd").parent().height($("ul").eq(i+1).height());
+		$(".main-tab .goods-list").css({"display":"block","float":"left","margin-top":"0"});
+		myScroll.scrollTo(0, 0);
+		myScroll.refresh();
+		}
+});
+
+//下拉滚动，上拉加载
+var myScroll,
+	pullDownEl, 
+	pullDownOffset,
+	pullUpEl, 
+	pullUpOffset;
+
+
+function pullDownAction () {
+	setTimeout(function () {
+		myScroll.refresh();
+	}, 1000);
+}
+
+function pullUpAction () {
+	setTimeout(function () {
+		var el, li, i, curIndex;
+		el = document.getElementsByTagName('ul');
+		if($('.tabli li').length  > 0){
+		curIndex = $(".cur").index();
+		}else{
+			curIndex = 0;
+		}
+		for (i=0; i<1; i++) { 
+			li = document.createElement('li');
+			li.innerHTML = '<a href="#"><img src="images/goods2.jpg"><b>雨伞折叠抱枕一个</b><p><i class="jf-icon orange-color">1250</i><span class="time">剩余20件</span></p></a>';
+			$(".tabcon ul").eq(curIndex).append(li);
+		}
+		$("#tabBox1-bd").parent().height($("ul").eq(curIndex+1).height());
+		myScroll.refresh();
+	}, 1000);
+}
+
+function loaded() {
+	pullDownEl = document.getElementById('pullDown');
+	pullDownOffset = pullDownEl.offsetHeight;
+	pullUpEl = document.getElementById('pullUp');	
+	pullUpOffset = pullUpEl.offsetHeight;
+	myScroll = new iScroll('wrapper', {
+		//preventDefault:false,
+		useTransition: true,
+		topOffset: pullDownOffset,
+		onRefresh: function () {
+			if (pullDownEl.className.match('loading')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉可以刷新';
+			} else if (pullUpEl.className.match('loading')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y > 5 && !pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'flip';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '松开立即刷新';
+				this.minScrollY = 0;
+			} else if (this.y < 5 && pullDownEl.className.match('flip')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉可以刷新';
+				this.minScrollY = -pullDownOffset;
+			} else if ( this.scrollerH < this.wrapperH && this.y < (this.minScrollY-pullUpOffset) || this.scrollerH > this.wrapperH && this.y < (this.maxScrollY - pullUpOffset) ) {
+				pullUpEl.className = 'flip';	
+				document.getElementById("pullUp").style.display="";		
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多';
+				$(".no-more").hide();
+				this.maxScrollY = this.maxScrollY;
+			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+				pullUpEl.className = '';
+				document.getElementById("pullUp").style.display="";		
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多';
+				this.maxScrollY = pullUpOffset;
+			}
+		},
+		onScrollEnd: function () {
+
+			if (pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'loading';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '正在刷新数据中…';	
+				pullDownAction();
+			} else if (pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'loading';	
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '正在加载更多的数据…';
+				pullUpAction();	
+				setTimeout(function () {document.getElementById("pullUp").style.display="none";	},1000);
+			}
+		}
+	});
+	
+}
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 100); }, false);
+</script>
+
+</body>
+</html>

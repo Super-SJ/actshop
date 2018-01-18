@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* 初始化样式 */
+/*@media screen and (min-width:500px){
+    html{font-size: 16px !important;}
+}*/
+body *{-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{margin:0;padding:0}
+body{
+    color: #525252;
+    font-size:62.5%;
+    background-color: #f7f7f7;
+    font-family:"Microsoft YaHei","ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3";
+    -webkit-text-size-adjust:none;
+    -webkit-overflow-scrolling:touch;
+    /*max-width:640px; margin:0 auto !important;*/
+    animation: load .5s ease-in;-webkit-animation: load .5s ease-in;
+}
+table{border-collapse:collapse;border-spacing:0}
+input,button,select,textarea{
+    outline:0;-webkit-box-sizing:border-box;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    -webkit-appearance: none;
+}
+img{vertical-align:middle;border:0;-ms-interpolation-mode:bicubic;-webkit-touch-callout:none;}
+ol,ul,li{list-style:none}
+b,strong,i{font-weight:normal;font-style:normal;}
+h1, h2, h3, h4, h5, h6{font-size:100%;font-weight:500}
+a{text-decoration:none; color:#333}
+a:hover{text-decoration:none;}
+a:focus,input:focus{ -webkit-tap-highlight-color:rgba(0,0,0,0);}
+.fl{ float:left;}
+.fr{ float:right;}
+::selection {background:#ff8023;color:#fff;}
+::-moz-selection {background:#ff4c24;color:#fff;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+label{ display:block;}
+/* 公用样式 */
+.orange-color{color:#34b3f7 !important;}
+.bgf{background-color: #fff;}
+.bobn{border-bottom: none !important;}
+.botn{border-top: none !important;}
+.ell{text-overflow:ellipsis;white-space:nowrap; overflow:hidden;}/* 单行超出变省略号 */
+.ells{overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}/* 多行超出变省略号 */
+.mask{display: none;position: absolute;position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: 10000;background-color: rgba(0,0,0,0.5);}
+.clear{clear: both;}
+.text-center{text-align: center;}
+dl{width: 100%;border-top: #eee solid 1px;display: table;}
+dt{display: table-cell;width: 6rem;text-align: right;font: .9rem/2.6rem "Microsoft Yahei";color: #888;padding-right: 1rem;}
+dd{display: table-cell;font:.9rem/2.6rem "Microsoft Yahei";vertical-align: middle;}
+/* 渐隐 */
+.loadbox{animation: load .9s ease-in;-webkit-animation: load .9s ease-in;}
+@keyframes load
+{
+   0% { opacity: 0;}
+   100% { opacity: 1;}
+}
+@-webkit-keyframes load 
+{
+   0% { opacity: 0;}
+   100% { opacity: 1;}
+}
+
+/* 图标-向下箭头 */
+.arrow-down {
+width: .4rem;
+height: .4rem;
+border: solid #fff 2px;
+display: inline-block;
+border-left: none;
+border-top: none;
+-webkit-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+/* 图标-向左箭头 */
+.arrow-left {
+width: .4rem;
+height: .4rem;
+border: solid #fff 2px;
+display: inline-block;
+border-bottom: none;
+border-left: none;
+-webkit-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+/* 图标-向右箭头 */
+.arrow-right {
+width: .4rem;
+height: .4rem;
+border: solid #ccc 2px;
+display: inline-block;
+border-top: none;
+border-right: none;
+-webkit-transform: rotate(225deg);
+-ms-transform: rotate(225deg);
+transform: rotate(225deg);
+}
+/* 返回透明图标 */
+.back-icon-opacity{width: 2rem;height: 2rem;background:rgba(0,0,0,0.3);border-radius:5rem;position: absolute;left:.5rem;top: 1rem; z-index: 99;}
+.back-icon-opacity::after{content:'';display: block;width: .8rem;height: .8rem;border: solid #fff 4px;display: inline-block;border-bottom: none;border-left: none;-webkit-transform: rotate(225deg);-ms-transform: rotate(225deg);transform: rotate(225deg);margin: .5rem 0 0 .6rem;}
+
+.half-border:before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    border: 1px solid #000;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5);
+}

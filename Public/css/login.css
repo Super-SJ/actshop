@@ -1,0 +1,52 @@
+body{
+	background-color: #393D49;
+}
+.form-box {
+	margin: 105px auto;
+	width:530px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.form-bottom {
+	padding: 60px 25px 30px 25px;
+	height: 360px;
+	background: #fff;
+	text-align: left;
+}
+.form-bottom .layui-form-item{
+	padding-bottom: 30px;
+}
+
+.form-bottom .form-bottom-btn{
+	margin-top: 30px;
+	text-align: center;
+}
+.form-bottom .form-bottom-btn button{
+	width: 272px;
+	height: 50px;
+	background-color: #009688;
+	font-size: 20px;
+	color:#fff;
+	border: 0px;
+	border-radius: 30px;
+}
+
+
+/***** Media queries *****/
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+@media (min-width: 768px) and (max-width: 991px) {}
+
+@media (max-width: 767px) {
+
+	.inner-bg { padding: 60px 0 110px 0; }
+
+}
+
+@media (max-width: 415px) {
+
+	h1, h2 { font-size: 32px; }
+
+}
+

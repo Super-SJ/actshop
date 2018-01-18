@@ -1,0 +1,77 @@
+body{
+    min-width: 1150px;
+}
+
+/*number处理(谷歌)*/
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+
+/*number处理(火狐)*/
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+#main_content{
+    margin-top: 20px;
+    margin-left: 210px;
+}
+
+.main_header{
+    margin-top: 10px;
+}
+
+.layui-breadcrumb{
+    margin-bottom: 10px;
+}
+
+.layui-breadcrumb a{
+    font-size: 16px;
+}
+.layui-breadcrumb a cite{
+    color:#1E9FFF;
+}
+
+/*表单样式*/
+.layui-form{
+    width: 80%;
+    margin-top: 20px;
+}
+
+input:disabled{
+    background-color: #dddddd;
+}
+
+.zTreeDemoBackground{
+    float: left;
+}
+
+/*搜索框样式*/
+.main_header_search{
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 99%;
+}
+
+.main_header_search .layui-form{
+    margin-top: 10px;
+    width: 100%;
+}
+.main_header_search .layui-form-item{
+    margin-bottom: 5px;
+}
+.main_header_search .layui-form-item .layui-inline{
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+.main_header_search .layui-input{
+    height: 25px;
+}
+
+.main_header_search .layui-form-label{
+    font-size: 13px;
+    line-height: 10px;
+    padding-left: 3px;
+}
+

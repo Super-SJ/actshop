@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<link rel="icon" href="__PUBLIC__/images/favicon.ico">-->
+    <block name="title"><title>商家后台</title></block>
+    <!--基础css-->
+    <!--<css href="__PUBLIC__/css/bootstrap.min.css?t=20170728"/>
+    <css href="__PUBLIC__/css/non-responsive.css?t=20170728"/>
+    <css href="__PUBLIC__/css/bootstrapValidator.min.css?t=20170728"/>-->
+    <css href="__PUBLIC__/layui/css/layui.css?t=20170728"/>
+    <css href="__PUBLIC__/css/base.css?t=20170728"/>
+    <!--[if lt IE 9]>
+    <js href="__PUBLIC__/js/respond.min.js?t=20170728"/>
+    <js href="__PUBLIC__/js/html5shiv.min.js?t=20170728"/>
+    <![endif]-->
+    <!--end 基础css-->
+    <!--页面css-->
+    <block name="css"></block>
+    <!--end 页面css-->
+</head>
+<body>
+<!--顶部导航栏-->
+<block name="header">
+<include file="Public:header" />
+</block>
+<!-- end 顶部导航栏-->
+
+<!--左边导航栏-->
+<block name="left">
+<include file="Public:left" />
+</block>
+<!--end 左边导航栏-->
+
+<!--主内容区-->
+<div id="main_content">
+<block name="main">
+
+</block>
+</div>
+
+<!--end 主内容区-->
+
+<!--基础js-->
+<js href="__PUBLIC__/js/jquery.min.js?t=20170728"/>
+<js href="__PUBLIC__/layui/layui.js?t=20170728"/>
+<!--<js href="__PUBLIC__/js/bootstrap.min.js?t=20170728"/>
+<js href="__PUBLIC__/js/bootstrapValidator.js?t=20170728"/>
+<js href="__PUBLIC__/js/layer/layer.js?t=20170728" />-->
+<js href="__PUBLIC__/js/common.js?t=20170728" />
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form','element'], function(){
+        var layer = layui.layer
+            ,form = layui.form()
+            ,element = layui.element();
+    });
+</script>
+
+<!--end 基础js-->
+<!--页面js-->
+<block name="js"></block>
+<!--end 页面js-->
+</body>
+</html>

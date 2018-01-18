@@ -1,0 +1,47 @@
+<extend name="Public:base" />
+<block name="main">
+    <form class="layui-form" action="{:U('create')}" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品售价</label>
+            <div class="layui-input-block">
+                <input type="text" placeholder="(元)" name="price" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品库存</label>
+            <div class="layui-input-block">
+                <input type="number" name="number" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品已售</label>
+            <div class="layui-input-block">
+                <input type="number" name="al_number" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品排序</label>
+            <div class="layui-input-block">
+                <input type="number" placeholder="数值越小越靠前，最小为0" name="order" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">商品详情</label>
+            <div class="layui-input-block">
+                <textarea name="detail" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button onclick="javascript:history.back()" class="layui-btn layui-btn-primary">返回</button>
+            </div>
+        </div>
+    </form>
+</block>
