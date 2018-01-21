@@ -21,7 +21,7 @@ return array(
     'DB_HOST' => '127.0.0.1', // 服务器地址
     'DB_NAME' => 'actshop', // 数据库名
     'DB_USER' => 'root', // 用户名
-    'DB_PWD' => 'root', // 密码
+    'DB_PWD' => 'D82fc0e822ed', // 密码
     'DB_PORT' => 3306, // 端口
     'DB_PARAMS' => array(), // 数据库连接参数
     'DB_PREFIX' => 'l_', // 数据库表前缀
