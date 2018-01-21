@@ -61,14 +61,12 @@ class GoodsController extends BaseController
         $photo_value1 = explode(',',trim(I('post.photo_value1'),','));
         foreach ($photo_value1 as $v){
             $arr_file[] = array('url'=>$v,'type' =>0 ,'goods_id'=>$result);
-            copy('./Public/temp/'.$v,'./Public/images/'.$v);
-            unlink('./Public/temp/'.$v);
+            rename('./Public/temp/'.$v,'./Public/images/'.$v);
         }
         $photo_value2 = explode(',',trim(I('post.photo_value2'),','));
         foreach ($photo_value2 as $v){
             $arr_file[] = array('url'=>$v,'type' =>1 ,'goods_id'=>$result);
-            copy('./Public/temp/'.$v,'./Public/images/'.$v);
-            unlink('./Public/temp/'.$v);
+            rename('./Public/temp/'.$v,'./Public/images/'.$v);
         }
         $photo_model = M('GoodsPicture');
         $photo_model->addAll($arr_file);
@@ -104,8 +102,7 @@ class GoodsController extends BaseController
             $photo_value1 = explode(',',trim(I('post.photo_value1'),','));
             foreach ($photo_value1 as $v){
                 $arr_file[] = array('url'=>$v,'type' =>0 ,'goods_id'=>I('post.id'));
-                copy('./Public/temp/'.$v,'./Public/images/'.$v);
-                unlink('./Public/temp/'.$v);
+                rename('./Public/temp/'.$v,'./Public/images/'.$v);
             }
         }
         if(!empty(I('post.photo_value2'))){
@@ -119,8 +116,7 @@ class GoodsController extends BaseController
             $photo_value2 = explode(',',trim(I('post.photo_value2'),','));
             foreach ($photo_value2 as $v){
                 $arr_file[] = array('url'=>$v,'type' =>1 ,'goods_id'=>I('post.id'));
-                copy('./Public/temp/'.$v,'./Public/images/'.$v);
-                unlink('./Public/temp/'.$v);
+                rename('./Public/temp/'.$v,'./Public/images/'.$v);
             }
         }
         $photo_model->addAll($arr_file);
@@ -136,6 +132,14 @@ class GoodsController extends BaseController
     {
         $model = M('Goods');
         $result = $model->where('id=' . I('get.id'))->save(array('status'=>I('get.status')));
+        if(I('get.status') == 2){
+            $photo_model = M('GoodsPicture');
+            $list = $photo_model->where('goods_id='.I('get.id'))->select();
+            foreach ($list as $v){
+                unlink('./Public/images/'.$v['url']);
+            }
+            $photo_model->where('goods_id='.I('get.id'))->delete();
+        }
         if ($result!==false) {
             $this->success('操作成功', U('index'));
         } else {

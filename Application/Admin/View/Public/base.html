@@ -7,9 +7,6 @@
     <!--<link rel="icon" href="__PUBLIC__/images/favicon.ico">-->
     <block name="title"><title>商家后台</title></block>
     <!--基础css-->
-    <!--<css href="__PUBLIC__/css/bootstrap.min.css?t=20170728"/>
-    <css href="__PUBLIC__/css/non-responsive.css?t=20170728"/>
-    <css href="__PUBLIC__/css/bootstrapValidator.min.css?t=20170728"/>-->
     <css href="__PUBLIC__/layui/css/layui.css?t=20170728"/>
     <css href="__PUBLIC__/css/base.css?t=20170728"/>
     <!--[if lt IE 9]>
@@ -46,14 +43,12 @@
 <!--基础js-->
 <js href="__PUBLIC__/js/jquery.min.js?t=20170728"/>
 <js href="__PUBLIC__/layui/layui.js?t=20170728"/>
-<!--<js href="__PUBLIC__/js/bootstrap.min.js?t=20170728"/>
-<js href="__PUBLIC__/js/bootstrapValidator.js?t=20170728"/>
-<js href="__PUBLIC__/js/layer/layer.js?t=20170728" />-->
 <js href="__PUBLIC__/js/common.js?t=20170728" />
 <script>
     //一般直接写在一个js文件中
-    layui.use(['layer'], function(){
-        var layer = layui.layer
+    layui.use(['layer','form'], function(){
+        var layer = layui.layer,
+            form = layui.form;
     });
 </script>
 

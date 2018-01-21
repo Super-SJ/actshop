@@ -1,0 +1,38 @@
+<extend name="Public:base" />
+<block name="main">
+    <a class="layui-btn" href="{:U('add')}">新增广告</a>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>广告位置</th>
+            <th>广告图</th>
+            <th>跳转路径</th>
+            <th>排序</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="vo">
+            <tr>
+                <td>{$vo.type}</td>
+                <td><img style="max-width: 320px;" src="__PUBLIC__/images/{$vo.url}"></td>
+                <td>{$vo.href}</td>
+                <td>{$vo.order}</td>
+                <td><a href="{:U('edit')}?id={$vo.id}" class="layui-btn layui-btn-small">编辑</a><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-danger layui-btn-small delete">删除</button></td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</block>
+<block name="js">
+    <script>
+        $(function () {
+            $('.delete').on('click',function () {
+                var id = $(this).attr('data-id');
+                layer.confirm('是否删除',function () {
+                    window.location.href = "{:U('delete')}?id="+id;
+                });
+            })
+        })
+    </script>
+</block>

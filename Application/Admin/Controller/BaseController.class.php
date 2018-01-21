@@ -16,4 +16,11 @@ class BaseController extends Controller
             $this->error("无权限，请先登录", U('Login/index') . "?ReturnUrl=" . __SELF__);
         }
     }
+
+    public function photo_upload()
+    {
+        $file_name = md5(time().mt_rand(1000000,9999999)) . "." . substr(strrchr($_FILES['file']['name'], '.'), 1);
+        copy($_FILES["file"]["tmp_name"], './Public/temp/' . $file_name);
+        $this->ajaxReturn(array('src'=>$file_name));
+    }
 }

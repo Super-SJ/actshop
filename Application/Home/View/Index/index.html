@@ -18,8 +18,9 @@
 <div class="mall-banner mall-index-banner">
 	<div class="swiper-container">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide"><a href="#" style="background-image:url(__PUBLIC__/img/mallban.jpg)"></a></div>
-			<div class="swiper-slide"><a href="#" style="background-image:url(__PUBLIC__/img/mallban.jpg)"></a></div>
+			<volist name="adlist" id="vo">
+				<div class="swiper-slide"><a href="{$vo.href}" style="background-image:url(__PUBLIC__/images/{$vo.url})"></a></div>
+			</volist>
 		</div>
 		<div class="swiper-pagination"></div>
 	</div>

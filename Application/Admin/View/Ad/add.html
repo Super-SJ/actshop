@@ -1,0 +1,90 @@
+<extend name="Public:base" />
+<block name="main">
+    <form class="layui-form" action="{:U('create')}" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告位置</label>
+            <div class="layui-input-block">
+                <select name="type" lay-filter="aihao">
+                    <option value="0">广告首页轮播(建议长320高125的大小倍数)</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">跳转路径</label>
+            <div class="layui-input-block">
+                <input type="text" value="#" placeholder="点击广告后跳转的地址" name="href" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品排序</label>
+            <div class="layui-input-block">
+                <input type="number" placeholder="数值越小越靠前，最小为0" name="order" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">广告图片</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="photo1">上传</button>
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list" id="demo1"></div>
+                    </blockquote>
+                </div>
+                <input id='photo_value1' type="hidden" name="photo_value1" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <a href="javascript:history.back()" class="layui-btn layui-btn-primary">返回</a>
+            </div>
+        </div>
+    </form>
+</block>
+<block name="js">
+    <script>
+        layui.use('upload', function() {
+            var $ = layui.jquery
+                , upload = layui.upload;
+
+            //多图片上传
+            upload.render({
+                elem: '#photo1'
+                , url: '{:U("photo_upload")}'
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                    });
+                }
+                ,  done: function (res) {
+                    //上传完毕
+                    var value = $('#photo_value1').val();
+                    $('#photo_value1').val(value + res.src +",");
+                },error:function () {
+                    $('#demo1').empty();
+                }
+            });
+
+            upload.render({
+                elem: '#photo2'
+                , url: '{:U("photo_upload")}'
+                , multiple: true
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                    });
+                }
+                , done: function (res) {
+                    //上传完毕
+                    var value = $('#photo_value2').val();
+                    $('#photo_value2').val(value + res.src +",");
+                },error:function () {
+                    $('#demo2').empty();
+                }
+            });
+        });
+    </script>
+</block>
