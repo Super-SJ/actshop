@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>确认订单</title>
+    <link href="__PUBLIC__/css/default/layout.css" type="text/css" rel="stylesheet">
+    <link href="__PUBLIC__/css/default/mall.css" type="text/css" rel="stylesheet">
+    <link href="__PUBLIC__/css/default/LArea.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="mall_header">
+    <a href="{:U('detail')}?id={$Think.get.id}"><img class='mall_header_img mall_header_img_left' src="__PUBLIC__/img/back.png" /></a>
+    <span class="mall_header_logo">偶遇商城</span>
+    <a href="{:U('Index/index')}"><img class='mall_header_img mall_header_img_right' src="__PUBLIC__/img/home.png" /></a>
+</div>
+<ul class="order-list" style="margin-top:-0.5rem">
+    <li>
+        <div class="con bobn">
+            <img src="__PUBLIC__/images/{$detail.url}">
+            <div class="des ells">
+                {$detail.name}
+            </div>
+            <span class="point"><b class="orange-color r-txt">￥{$detail.price}元</b>/件</span>
+        </div>
+    </li>
+</ul>
+<ul class="oy-list">
+    <li>
+        <span>配送方式</span>
+        <i class="r-txt">货到付款</i>
+    </li>
+</ul>
+<div class="mall-goods-list"><h3 class="title">收货信息</h3></div>
+<form id="form" action="{:U('Order/create')}" method="post">
+    <ul class="oy-list table-list">
+        <li>
+            <span>购买数量</span>
+            <i class="oy-txt"><input type="number" name="number" placeholder="数量" value="1"></i>
+        </li>
+        <li>
+            <span>收货人</span>
+            <i class="oy-txt"><input type="text" name="customer_name" placeholder="名字"></i>
+        </li>
+        <li>
+            <span>手机号码</span>
+            <i class="oy-txt"><input type="tel" name="customer_phone" placeholder="11位手机号"></i>
+        </li>
+        <li>
+            <span>选择地区</span>
+            <i class="oy-txt">
+                <input id="area1" name="customer_address_pre" type="text" readonly="" placeholder="选择地区" class="ell">
+                <input id="value1" type="hidden">
+            </i>
+        </li>
+        <li>
+            <span>详细地址</span>
+            <i class="oy-txt"><input name="customer_address_last" type="text" placeholder="街道门牌信息"></i>
+        </li>
+        <input type="hidden" name="id" value="{$detail.id}">
+    </ul>
+</form>
+<div class="fixed-jf">
+    <button href="javascript:;" class="oy-btn oy-orange-btn w100" onclick="ShowAblock()" id="dui-btn">下单</button>
+</div>
+<!-- 弹框 -->
+<div id="alert-block" onclick="hideAblock()">
+    <div class="alertbox">
+        <div class="con">
+            <p>信息确认无误并下单？</p>
+        </div>
+        <div class="op">
+            <a href="javascript:;" onclick="confirm_submit()">确定</a>
+            <a href="#" onclick="hideAblock()">取消</a>
+        </div>
+    </div>
+    <div class="shade"></div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/js/default/main.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/default/LAreaData1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/default/LAreaData2.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/default/LArea.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script>
+    var area1 = new LArea();
+    area1.init({
+        'trigger': '#area1',
+        'valueTo': '#value1',
+        'keys': {
+            id: 'id',
+            name: 'name'
+        },
+        'type': 1,
+        'data': LAreaData
+    });
+    area1.value = [0, 0];
+</script>
+
+<script>
+    var al = document.getElementById('alert-block');
+    var bm = document.getElementById('dui-btn');
+    function ShowAblock(msg) {
+        al.style.display = "block";
+    }
+    function hideAblock() {
+        al.style.display = "none";
+    }
+    function confirm_submit() {
+        var url = $('#form').attr('action');
+        var data = $('#form').serialize();
+        $.ajax({
+            type: "post",
+            url: url,
+            data: data,
+            dataType: "json",
+            success: function (msg) {
+                if (msg.ret == "0") {
+                    alert('下单成功');
+                    window.location.href = "{:U('Goods/detail')}?id={$Think.get.id}";
+                }else{
+                    alert(msg.msg);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

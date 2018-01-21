@@ -11,6 +11,9 @@
 <link href="__PUBLIC__/css/default/mall.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+<div class="mall_header">
+	<span class="mall_header_logo">偶遇商城</span>
+</div>
 <!-- banner -->
 <div class="mall-banner mall-index-banner">
 	<div class="swiper-container">
@@ -22,7 +25,7 @@
 	</div>
 </div>
 <!-- 广告位橱窗 -->
-<div class="adsbox">
+<!--<div class="adsbox">
 	<div class="ads-left">
 		<a href="activities.html" style="background-image:url(__PUBLIC__/img/ad1.jpg)"></a>
 	</div>
@@ -30,117 +33,23 @@
 		<a href="activities.html" style="background-image:url(__PUBLIC__/img/ad2.jpg)"></a>
 		<a href="#activities.html" style="background-image:url(__PUBLIC__/img/ad2.jpg)"></a>
 	</div>
-</div>
+</div>-->
 <!-- 商品列表 -->
 <div class="mall-goods-list">
-	<h2 class="title">我可兑换的商品<a href="goods-list.html" class="more clear">更多&gt;&gt;</a></h2>
+	<h2 class="title">热卖新品<!--<a href="goods-list.html" class="more clear">更多&gt;&gt;</a>--></h2>
 	<div class="goods-list">
 		<ul>
-			<li>
-				<a href="goods-detail.html">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>  
-		</ul>
-	</div>
-	<h2 class="title">限时优惠<a href="goods-list.html" class="more clear">更多&gt;&gt;</a></h2>
-	<div class="goods-list">
-		<ul>
-			<li>
-				<a href="goods-detail1.html">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-		</ul>
-	</div>
-	<h2 class="title">大家都在兑换的商品<a href="goods-list.html" class="more clear">更多&gt;&gt;</a></h2>
-	<div class="goods-list">
-		<ul>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-		</ul>
-	</div>
-	<h2 class="title">新货上架<a href="goods-list.html" class="more clear">更多&gt;&gt;</a></h2>
-	<div class="goods-list">
-		<ul>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="imgbox" style="background-image:url(__PUBLIC__/img/goods2.jpg)"></div>
-					<b>雨伞折叠抱枕一个</b>
-					<p>
-						<i class="orange-color">¥12元+388偶币</i>
-					</p>
-				</a>
-			</li>
+			<volist name="list" id="vo">
+				<li>
+					<a href="{:U('Goods/detail')}?id={$vo.id}">
+						<div class="imgbox" style="background-image:url(__PUBLIC__/images/{$vo.url})"></div>
+						<b>{$vo.name}</b>
+						<p>
+							<i class="orange-color">¥{$vo.price}元</i>
+						</p>
+					</a>
+				</li>
+			</volist>
 		</ul>
 	</div>
 </div>

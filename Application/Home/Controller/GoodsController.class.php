@@ -3,68 +3,25 @@ namespace Home\Controller;
 
 class GoodsController extends BaseController
 {
-    public function index()
-    {
+    public function detail(){
         $model = M('Goods');
-        $list = $model->select();
-        $this->assign('list',$list);
-        $this->display();
-    }
-
-    public function add(){
-        $this->display();
-    }
-
-    public function edit(){
-        $model = M('Goods');
-        $detail = $model->where('id='.I('get.id'))->find();
+        $detail = $model->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')->where('l_goods.id=' . I('get.id'))->field('l_goods.*,l_goods_picture.type,l_goods_picture.url')->select();
+        foreach ($detail as $v){
+            if($v['type']== 0){
+                $picture_0[] = $v['url'];
+            }elseif ($v['type'] == 1){
+                $picture_1[] =$v['url'];
+            }
+        }
+        $detail = array_merge($detail[0],array('picture_0'=>$picture_0),array('picture_1'=>$picture_1));
         $this->assign('detail',$detail);
         $this->display();
     }
 
-    public function create(){
-        $param = array(
-            'name'=>I('post.name'),
-            'price'=>I('post.price'),
-            'number'=>I('post.number'),
-            'al_number'=>I('post.al_number'),
-            'detail'=>I('post.detail'),
-            'order'=>I('post.order'),
-        );
+    public function submit(){
         $model = M('Goods');
-        $result = $model->add($param);
-        if($result){
-            $this->success('添加成功',U('index'));
-        }else{
-            $this->error('添加失败');
-        }
-    }
-
-    public function update(){
-        $param = array(
-            'name'=>I('post.name'),
-            'price'=>I('post.price'),
-            'number'=>I('post.number'),
-            'al_number'=>I('post.al_number'),
-            'detail'=>I('post.detail'),
-            'order'=>I('post.order'),
-        );
-        $model = M('Goods');
-        $result = $model->where('id='.I('post.id'))->save($param);
-        if($result){
-            $this->success('修改成功',U('index'));
-        }else{
-            $this->error('修改失败');
-        }
-    }
-
-    public function delete(){
-        $model = M('Goods');
-        $result = $model->where('id='.I('get.id'))->delete();
-        if($result){
-            $this->success('删除成功',U('index'));
-        }else{
-            $this->error('删除失败');
-        }
+        $detail = $model->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')->where(array('l_goods.id'=>I('get.id')))->group('l_goods.id')->field('l_goods.*,l_goods_picture.url')->order(array('l_goods.order'))->find();
+        $this->assign('detail',$detail);
+        $this->display();
     }
 }

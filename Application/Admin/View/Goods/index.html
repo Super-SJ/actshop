@@ -5,10 +5,12 @@
         <thead>
         <tr>
             <th>商品名称</th>
+            <th>商品主图</th>
             <th>商品售价</th>
             <th>商品库存</th>
             <th>商品已售</th>
             <th>商品详情</th>
+            <th>商品状态</th>
             <th>排序</th>
             <th>操作</th>
         </tr>
@@ -17,12 +19,14 @@
         <volist name="list" id="vo">
             <tr>
                 <td>{$vo.name}</td>
+                <td><img class="layui-upload-img-index" src="__PUBLIC__/images/{$vo.url}"></td>
                 <td>{$vo.price}</td>
                 <td>{$vo.number}</td>
                 <td>{$vo.al_number}</td>
                 <td>{$vo.detail}</td>
+                <td>{$vo.status}</td>
                 <td>{$vo.order}</td>
-                <td><a href="{:U('edit')}?id={$vo.id}" class="layui-btn layui-btn-small">编辑</a><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small delete">删除</button></td>
+                <td><a href="{:U('edit')}?id={$vo.id}" class="layui-btn layui-btn-small">编辑</a><eq name="vo.status" value="下架"><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small up">上架</button></eq><eq name="vo.status" value="上架"><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small down">下架</button></eq><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-danger layui-btn-small delete">删除</button></td>
             </tr>
         </volist>
         </tbody>
@@ -31,10 +35,18 @@
 <block name="js">
     <script>
         $(function () {
+            $('.up').on('click',function () {
+                var id = $(this).attr('data-id');
+                window.location.href = "{:U('update_status')}?status=0&id="+id;
+            })
+            $('.down').on('click',function () {
+                var id = $(this).attr('data-id');
+                window.location.href = "{:U('update_status')}?status=1&id="+id;
+            })
             $('.delete').on('click',function () {
                 var id = $(this).attr('data-id');
                 layer.confirm('是否删除该商品',function () {
-                    window.location.href = "{:U('delete')}?id="+id;
+                    window.location.href = "{:U('update_status')}?status=2&id="+id;
                 });
             })
         })

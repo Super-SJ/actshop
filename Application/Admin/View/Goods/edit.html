@@ -37,12 +37,97 @@
                 <textarea name="detail" class="layui-textarea">{$detail.detail}</textarea>
             </div>
         </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">商品主图</label>
+            <div class="layui-input-block">
+                <volist name="detail.picture_0" id="vo">
+                    <img class="layui-upload-img" src="__PUBLIC__/images/{$vo}">
+                </volist>
+                <input type="hidden" name="picture_value_0" value="{$detail.picture_value_0}">
+            </div>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="photo1">上传</button>
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list" id="demo1"></div>
+                    </blockquote>
+                </div>
+                <input id='photo_value1' type="hidden" name="photo_value1" value="">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">商品详情图</label>
+            <div class="layui-input-block">
+                <volist name="detail.picture_1" id="vo">
+                    <img class="layui-upload-img" src="__PUBLIC__/images/{$vo}">
+                </volist>
+                <input type="hidden" name="picture_value_1" value="{$detail.picture_value_1}">
+            </div>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="photo2">上传</button>
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list" id="demo2"></div>
+                    </blockquote>
+                </div>
+                <input id='photo_value2' type="hidden" name="photo_value2" value="">
+            </div>
+        </div>
         <input type="hidden" name="id" value="{$detail.id}">
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <a  href="javascript:history.back()" class="layui-btn layui-btn-primary">返回</a>
+                <a href="javascript:history.back()" class="layui-btn layui-btn-primary">返回</a>
             </div>
         </div>
     </form>
+</block>
+<block name="js">
+    <script>
+        layui.use('upload', function() {
+            var $ = layui.jquery
+                , upload = layui.upload;
+
+            //多图片上传
+            upload.render({
+                elem: '#photo1'
+                , url: '{:U("photo_upload")}'
+                , multiple: true
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                    });
+                }
+                ,  done: function (res) {
+                    //上传完毕
+                    var value = $('#photo_value1').val();
+                    $('#photo_value1').val(value + res.src +",");
+                },error:function () {
+                    $('#demo1').empty();
+                }
+            });
+
+            upload.render({
+                elem: '#photo2'
+                , url: '{:U("photo_upload")}'
+                , multiple: true
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                    });
+                }
+                , done: function (res) {
+                    //上传完毕
+                    var value = $('#photo_value2').val();
+                    $('#photo_value2').val(value + res.src +",");
+                },error:function () {
+                    $('#demo2').empty();
+                }
+            });
+        });
+    </script>
 </block>

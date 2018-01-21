@@ -118,3 +118,29 @@ transform: rotate(225deg);
     -webkit-transform: scale(0.5, 0.5);
     transform: scale(0.5, 0.5);
 }
+
+.mall_header{
+    text-align: center;
+    height: 2rem;
+    background-color: #F9F9F9
+}
+.mall_header_logo{
+    display: inline-block;
+    padding-top: 0.4rem;
+    font-family: '楷体';
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+.mall_header .mall_header_img{
+    margin-top: 0.25rem;
+    height: 1.5rem;
+    width:1.5rem
+}
+.mall_header .mall_header_img_left{
+    float: left;
+    margin-left: 0.5rem;
+}
+.mall_header .mall_header_img_right{
+    float: right;
+    margin-right: 0.5rem;
+}

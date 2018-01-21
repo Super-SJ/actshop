@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商家后台</title>
+    <!-- CSS -->
+    <css href="__PUBLIC__/css/login.css?t=20170303"/>
+
+    <!-- HTML5 Shim and Respond.js?t=20170303 IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js?t=20170303 doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <js href="__PUBLIC__/js/html5shiv.js?t=20170303"/>
+    <js href="__PUBLIC__/js/respond.min.js?t=20170303"/>
+    <![endif]-->
+
+</head>
+
+<body>
+<!-- Top content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class=" form-box">
+                    <div class="form-bottom">
+                        <form role="form" method="post" class="login-form">
+                            <div class="form-bottom-group">
+                                <label>用户名</label>
+                                <input type="text" name="user" class="form-username" id="SysStaffCode">
+                            </div>
+                            <div class="form-bottom-group">
+                                <label>密　码</label>
+                                <input type="password" name="password" class="form-password" id="SysStaffPsw">
+                            </div>
+                            <div class="form-bottom-group">
+                                <label>验证码</label>
+                                <input type="text" name="verify_code" style="width: 40%;"/>
+                                <img id="verify_img" src="{:U('Login/verify_c')}" alt="验证码" title="点击刷新"
+                                     style="float:right;width: 40%;height: 40px;cursor: pointer;"/>
+                            </div>
+                            <div class="form-bottom-btn">
+                                <button type="button" id="sub_btn" class="btn">登　录</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- Javascript -->
+<js href="__PUBLIC__/js/jquery.min.js?t=20170303"/>
+<js href="__PUBLIC__/js/common.js?t=20170303"/>
+<js href="__PUBLIC__/layui/layui.js?t=20170303"/>
+<script>
+
+    layui.use(['layer'], function () {
+        var layer = layui.layer;
+    });
+
+    document.onkeydown = function (event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e && e.keyCode == 13) {
+            document.getElementById("sub_btn").click();
+            return false;
+        }
+    };
+
+    $(function () {
+        if (window.location.href.indexOf("www.") != -1) {
+            window.location.href = window.location.href.replace("www.", "");
+        }
+
+        $("#company_code").on('change keyup', function () {
+            if ($.trim($(this).val()).length == 0) {
+                $("#wx_btn").attr("disabled", true);
+            } else {
+                $("#wx_btn").attr("disabled", false);
+            }
+        });
+        $('#sub_btn').on('click', function () {
+            $(this).parents('.login-form').find('input[type="text"], input[type="password"], textarea').each(function () {
+                if ($(this).val() == "") {
+                    $(this).addClass('input-error');
+                    $('#sub_btn').addClass('disabled');
+                }
+                else {
+                    $(this).removeClass('input-error');
+                }
+            });
+            var index;
+            $.ajax({
+                type: "post",
+                url: "{:U('login')}",
+                data: $(".login-form").serialize(),
+                beforeSend: function (request) {
+                    index = layer.load();
+                },
+                success: function (msg) {
+                    layer.close(index);
+                    if (msg.ret == "0") {
+                        if (getQueryString("ReturnUrl") == null) {
+                            window.location.href = "{:U('Index/index')}";
+                        } else {
+                            window.location.href = getQueryString("ReturnUrl");
+                        }
+                    } else {
+                        layer.alert(msg.msg, {
+                            icon: 2
+                        }, function () {
+                            layer.closeAll();
+                            $("input[name='verify_code']").val("");
+                            if (msg.ret != "2") {
+                                $("#SysStaffPsw").val("");
+                            }
+                            $("#verify_img").click();
+                        });
+                    }
+                }
+            });
+        });
+        $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function () {
+            $(this).removeClass('input-error');
+            $('#sub_btn').removeClass('disabled');
+        });
+
+        // 验证码生成
+        var verify_img = $('#verify_img');
+        var verify_url = verify_img.attr("src");
+        verify_img.click(function () {
+            if (verify_url.indexOf('?') > 0) {
+                $(this).attr("src", verify_url + '&random=' + Math.random());
+            } else {
+                $(this).attr("src", verify_url.replace(/\?.*$/, '') + '?' + Math.random());
+            }
+        });
+    });
+
+</script>
+</body>
+
+</html>

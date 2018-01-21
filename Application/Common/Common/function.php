@@ -113,7 +113,7 @@ function get_sign($parameter)
         $sign_str .= $key . $val;
     }
     //拼接上密钥
-    $sign_str = $secret_key.$sign_str.$secret_key;
+    $sign_str = $secret_key . $sign_str . $secret_key;
     //md5大写
     $sign_value = strtoupper(md5($sign_str));
     //添加进数组
@@ -170,4 +170,19 @@ function httpPost($url, $param, $headers = '')
     }
 }
 
+function phone_check($phone)
+{
+    //正则表达式
+    if (strlen($phone) == "11") {
+        preg_match("/13{1}\d{9}|15\d{9}|17\d{9}|18\d{9}|19\d{9}/", $phone, $array);
+        return $array;
+    } else {
+        return "长度必须是11位";
+    }
+}
+
+function check_verify($code, $id = ""){
+    $verify = new \Think\Verify();
+    return $verify->check($code, $id);
+}
 ?>

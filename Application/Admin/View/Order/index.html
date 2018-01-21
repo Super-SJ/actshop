@@ -25,7 +25,7 @@
                 <td>{$vo.customer_phone}</td>
                 <td>{$vo.customer_address}</td>
                 <td>{$vo.create_time}</td>
-                <td><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small send">发货</button><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small receive">签收</button><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small delete">作废</button></td>
+                <td><neq name="vo.status" value="已作废"><eq name="vo.status" value="待发货"><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small send">发货</button></eq><eq name="vo.status" value="已发货"><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small receive">签收</button></eq><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-danger layui-btn-small delete">作废</button></neq></td>
             </tr>
         </volist>
         </tbody>
