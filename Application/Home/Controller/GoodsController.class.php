@@ -21,6 +21,15 @@ class GoodsController extends BaseController
     public function submit(){
         $model = M('Goods');
         $detail = $model->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')->where(array('l_goods.id'=>I('get.id')))->group('l_goods.id')->field('l_goods.*,l_goods_picture.url')->order(array('l_goods.order'))->find();
+        $arr_spe = M('GoodsSpe')->where('goods_id='.I('get.id'))->select();
+        foreach ($arr_spe as $v){
+            if($v['type'] == 0){
+                $spe_value_1[] = $v['value'];
+            }else{
+                $spe_value_2[] = $v['value'];
+            }
+        }
+        $detail = array_merge($detail,array_merge(array('spe_value_1'=>$spe_value_1,'spe_value_2'=>$spe_value_2)));
         $this->assign('detail',$detail);
         $this->display();
     }

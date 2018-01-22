@@ -37,6 +37,26 @@
 <div class="mall-goods-list"><h3 class="title">收货信息</h3></div>
 <form id="form" action="{:U('Order/create')}" method="post">
     <ul class="oy-list table-list">
+        <notempty name="detail.spe_value_1">
+            <li>
+                <span>尺码</span>
+                <dl name="spe_value_1">
+                    <volist name="detail.spe_value_1" id="vo">
+                        <dd <eq name="key" value="0">class="sel"<else />class="normal"</eq>>{$vo}</dd>
+                    </volist>
+                </dl>
+            </li>
+        </notempty>
+        <notempty name="detail.spe_value_2">
+            <li>
+                <span>颜色</span>
+                <dl name="spe_value_2">
+                    <volist name="detail.spe_value_2" id="vo">
+                        <dd <eq name="key" value="0">class="sel"<else />class="normal"</eq>>{$vo}</dd>
+                    </volist>
+                </dl>
+            </li>
+        </notempty>
         <li>
             <span>购买数量</span>
             <i class="oy-txt"><input type="number" name="number" placeholder="数量" value="1"></i>

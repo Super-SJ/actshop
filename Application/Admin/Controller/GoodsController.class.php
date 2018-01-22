@@ -28,7 +28,19 @@ class GoodsController extends BaseController
     public function edit()
     {
         $model = M('Goods');
-        $detail = $model->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')->where('l_goods.id=' . I('get.id'))->field('l_goods.*,l_goods_picture.url,l_goods_picture.type')->select();
+        $detail = $model
+            ->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')
+            ->where('l_goods.id=' . I('get.id'))->field('l_goods.*,l_goods_picture.url,l_goods_picture.type')->select();
+        $arr_spe = M('GoodsSpe')->where('goods_id='.I('get.id'))->select();
+        foreach ($arr_spe as $v){
+            if($v['type'] == 0){
+                $spe_value_1[] = $v['value'];
+            }else{
+                $spe_value_2[] = $v['value'];
+            }
+        }
+        $spe_value_1 = implode(',',$spe_value_1);
+        $spe_value_2 = implode(',',$spe_value_2);
         foreach ($detail as $v){
             if($v['type']== 0){
                 $picture_0[] = $v['url'];
@@ -41,6 +53,8 @@ class GoodsController extends BaseController
         $detail = array_merge($detail[0],array('picture_0'=>$picture_0),array('picture_1'=>$picture_1));
         $detail['picture_value_0'] = $picture_value_0;
         $detail['picture_value_1'] = $picture_value_1;
+        $detail['spe_value_1'] = $spe_value_1;
+        $detail['spe_value_2'] = $spe_value_2;
         $this->assign('detail', $detail);
         $this->display();
     }
@@ -57,7 +71,7 @@ class GoodsController extends BaseController
         );
         $model = M('Goods');
         $result = $model->add($param);
-
+        //图片开始
         $photo_value1 = explode(',',trim(I('post.photo_value1'),','));
         foreach ($photo_value1 as $v){
             $arr_file[] = array('url'=>$v,'type' =>0 ,'goods_id'=>$result);
@@ -70,6 +84,32 @@ class GoodsController extends BaseController
         }
         $photo_model = M('GoodsPicture');
         $photo_model->addAll($arr_file);
+        //规格开始
+        if(!empty(I('post.spe_value_1'))){
+            $spe_value_1 = explode(',',I('post.spe_value_1'));
+            foreach ($spe_value_1 as $v){
+                $arr_spe[] = array(
+                    'type'=>0,
+                    'value'=>$v,
+                    'goods_id'=>$result
+                );
+            }
+        }
+        if(!empty(I('post.spe_value_2'))){
+            $spe_value_1 = explode(',',I('post.spe_value_2'));
+            foreach ($spe_value_1 as $v){
+                $arr_spe[] = array(
+                    'type'=>1,
+                    'value'=>$v,
+                    'goods_id'=>$result
+                );
+            }
+        }
+        if(!empty($arr_spe)){
+            $spe_model = M('GoodsSpe');
+            $spe_model->addAll($arr_spe);
+        }
+
         if ($result) {
             $this->success('添加成功', U('index'));
         } else {
@@ -119,7 +159,36 @@ class GoodsController extends BaseController
                 rename('./Public/temp/'.$v,'./Public/images/'.$v);
             }
         }
-        $photo_model->addAll($arr_file);
+        if(!empty($arr_file)){
+            $photo_model->addAll($arr_file);
+        }
+
+        //规格开始
+        $spe_model = M('GoodsSpe');
+        $spe_model->where(array('goods_id'=>I('post.id')))->delete();
+        if(!empty(I('post.spe_value_1'))){
+            $spe_value_1 = explode(',',I('post.spe_value_1'));
+            foreach ($spe_value_1 as $v){
+                $arr_spe[] = array(
+                    'type'=>0,
+                    'value'=>$v,
+                    'goods_id'=>I('post.id')
+                );
+            }
+        }
+        if(!empty(I('post.spe_value_2'))){
+            $spe_value_1 = explode(',',I('post.spe_value_2'));
+            foreach ($spe_value_1 as $v){
+                $arr_spe[] = array(
+                    'type'=>1,
+                    'value'=>$v,
+                    'goods_id'=>I('post.id')
+                );
+            }
+        }
+        if(!empty($arr_spe)){
+            $spe_model->addAll($arr_spe);
+        }
 
         if ($result !== false) {
             $this->success('修改成功', U('index'));
@@ -139,6 +208,7 @@ class GoodsController extends BaseController
                 unlink('./Public/images/'.$v['url']);
             }
             $photo_model->where('goods_id='.I('get.id'))->delete();
+            M('GoodsSpe')->where('goods_id='.I('get.id'))->delete();
         }
         if ($result!==false) {
             $this->success('操作成功', U('index'));

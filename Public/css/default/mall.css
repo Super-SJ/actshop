@@ -46,6 +46,26 @@ label{ display:block;overflow: hidden;}
 .oy-list .text-center{display: block;float: none; color: #34b3f7;}
 .oy-list .oy-orange-btn{font-size: .875rem;border: 0 none;padding: .2rem .5rem;border-radius: .3rem;}
 .oy-list li small{color: #808080;margin-left: .5rem;}
+.oy-list dl{
+  border: none;
+}
+.oy-list dd {
+  display: inline-block;
+  height: 1.6rem;
+  line-height: .8rem;
+  text-align: center;
+  vertical-align: middle;
+  background: #f8f8f8;
+  border-radius: .16rem;
+  padding: 0.45rem .267rem 0 0.267rem;
+  box-sizing: border-box;
+  margin: .5rem .24rem 0 0;
+  cursor: pointer;
+  font-size: .8rem}
+.oy-list .sel{
+  color: #fff;
+  background: #53AAF8;
+}
 .pay-style-list li img{width: 1.2rem;margin-right: .2rem;}
 .table-list li{position: relative;height: 2.6rem;padding-left: 4rem;}
 .table-list li span{position: absolute;left: 0;top: 0;font-size: .75rem;color: #808080;}
