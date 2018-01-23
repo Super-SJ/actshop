@@ -14,6 +14,9 @@ class GoodsController extends BaseController
             }
         }
         $detail = array_merge($detail[0],array('picture_0'=>$picture_0),array('picture_1'=>$picture_1));
+        //评价部分
+        $arr_evalute = M('GoodsEvaluate')->where('goods_id='.I('get.id'))->order(array('id'))->select();
+        $detail['evalute'] = $arr_evalute;
         $this->assign('detail',$detail);
         $this->display();
     }

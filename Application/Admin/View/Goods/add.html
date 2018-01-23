@@ -31,6 +31,12 @@
                 <input type="number" placeholder="数值越小越靠前，最小为0" name="order" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系客服</label>
+            <div class="layui-input-block">
+                <input type="text" placeholder="填客服联系渠道" name="support" lay-verify="required" class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item spe_type_1">
             <div cla="layui-inline">
                 <label class="layui-form-label">商品规格1</label>
@@ -58,6 +64,19 @@
             <div class="layui-inline">
                 <div class="layui-input-inline" style="width: 250%;" >
                     <input type="text" placeholder="多规格用英文逗号','隔开,例如黑色,白色.没有可不填" name="spe_value_2" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text evalute-div">
+            <label class="layui-form-label">评价   <i class="layui-btn layui-btn-sm layui-icon" id="evalute-add">&#xe654;</i></label>
+            <div cla="layui-inline">
+                <div class="layui-input-inline" style="width: 14%;">
+                    <input type="text" placeholder="用户名" name="evaluate_user[]" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline" style="width: 254%;">
+                    <textarea placeholder="评价内容" class="layui-textarea" name="evaluate_value[]"></textarea>
                 </div>
             </div>
         </div>
@@ -103,6 +122,11 @@
 </block>
 <block name="js">
     <script>
+        $(function () {
+            $('#evalute-add').on('click',function () {
+                $('.evalute-div:last').after('<div class="layui-form-item layui-form-text evalute-div"><label class="layui-form-label"></label><div cla="layui-inline"><div class="layui-input-inline" style="width: 14%;"> <input type="text" placeholder="用户名" name="evaluate_user[]" class="layui-input"> </div> </div> <div class="layui-inline"> <div class="layui-input-inline" style="width: 254%;" >  <textarea placeholder="评价内容" class="layui-textarea" name="evaluate_value[]"></textarea> </div> </div> </div>');
+            })
+        })
         layui.use('upload', function() {
             var $ = layui.jquery
                 , upload = layui.upload;

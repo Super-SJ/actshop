@@ -31,6 +31,7 @@ class GoodsController extends BaseController
         $detail = $model
             ->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')
             ->where('l_goods.id=' . I('get.id'))->field('l_goods.*,l_goods_picture.url,l_goods_picture.type')->select();
+        //规格部分
         $arr_spe = M('GoodsSpe')->where('goods_id='.I('get.id'))->order(array('value'))->select();
         foreach ($arr_spe as $v){
             if($v['type'] == 0){
@@ -55,6 +56,9 @@ class GoodsController extends BaseController
         $detail['picture_value_1'] = $picture_value_1;
         $detail['spe_value_1'] = $spe_value_1;
         $detail['spe_value_2'] = $spe_value_2;
+        //评价部分
+        $arr_evalute = M('GoodsEvaluate')->where('goods_id='.I('get.id'))->order(array('id'))->select();
+        $detail['evalute'] = $arr_evalute;
         $this->assign('detail', $detail);
         $this->display();
     }
@@ -68,6 +72,7 @@ class GoodsController extends BaseController
             'al_number' => I('post.al_number'),
             'detail' => I('post.detail'),
             'order' => I('post.order'),
+            'support' => I('post.support'),
         );
         $model = M('Goods');
         $result = $model->add($param);
@@ -106,10 +111,19 @@ class GoodsController extends BaseController
             }
         }
         if(!empty($arr_spe)){
-            $spe_model = M('GoodsSpe');
-            $spe_model->addAll($arr_spe);
+            M('GoodsSpe')->addAll($arr_spe);
         }
-
+        //评价开始
+        $evaluate_user = I('post.evaluate_user');
+        $evaluate_value = I('post.evaluate_value');
+        for ($i=0;$i<count($evaluate_user);$i++){
+            $evalute_data[] = array(
+                'user'=>$evaluate_user[$i],
+                'content'=>$evaluate_value[$i],
+                'goods_id'=>$result
+            );
+        }
+        M('GoodsEvaluate')->addAll($evalute_data);
         if ($result) {
             $this->success('添加成功', U('index'));
         } else {
@@ -126,6 +140,7 @@ class GoodsController extends BaseController
             'al_number' => I('post.al_number'),
             'detail' => I('post.detail'),
             'order' => I('post.order'),
+            'support' => I('post.support'),
         );
         $model = M('Goods');
         $result = $model->where('id=' . I('post.id'))->save($param);
@@ -189,7 +204,19 @@ class GoodsController extends BaseController
         if(!empty($arr_spe)){
             $spe_model->addAll($arr_spe);
         }
-
+        //评价开始
+        $eva_model = M('GoodsEvaluate');
+        $eva_model->where(array('goods_id'=>I('post.id')))->delete();
+        $evaluate_user = I('post.evaluate_user');
+        $evaluate_value = I('post.evaluate_value');
+        for ($i=0;$i<count($evaluate_user);$i++){
+            $evalute_data[] = array(
+                'user'=>$evaluate_user[$i],
+                'content'=>$evaluate_value[$i],
+                'goods_id'=>I('post.id')
+            );
+        }
+        $eva_model->addAll($evalute_data);
         if ($result !== false) {
             $this->success('修改成功', U('index'));
         } else {

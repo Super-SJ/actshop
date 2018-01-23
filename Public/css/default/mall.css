@@ -135,7 +135,12 @@ label{ display:block;overflow: hidden;}
 .goods-info p{color: #333;font-size:.875rem;line-height: 1.4rem;}
 .goods-pei li.bobn p{color: #000;font-size:.75rem;line-height: 1.4rem;}
 .goods-pei li{padding: .3rem .75rem .3rem 0;}
-.detcon{background:#fff;position: relative;margin-bottom: 3rem;}
+.evalute-info{padding:0 .5rem;position:relative;background: #fff;overflow: hidden;}
+.evalute-user{margin: .2rem;padding-top: 0.3rem}
+.evalute-user-img{width: 25px;height: 25px;border-radius: 20px;}
+.evalute-user-name{vertical-align: middle;  padding: 5px;  line-height: 22px; color: #999;}
+.evalute-user-content{font-size: .6rem;padding-bottom:0.5rem;border-bottom: 1px solid #e5e5e5;}
+.detcon{background:#fff;position: relative}
 .detcon h3{color: #808080;font-size:1rem;line-height: 2.4rem;height: 2.4rem;padding: 0 .5rem;}
 .detcon img{width: 100%;}
 .editbox{padding:0 .5rem .5rem;line-height: 1.8rem;}

@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>商品详情</title>
-<link href="__PUBLIC__/css/default/layout.css" type="text/css" rel="stylesheet">
-<link href="__PUBLIC__/css/default/mall.css" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/css/default/layout.css?t=20180123" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/css/default/mall.css?t=20180123" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div class="mall_header">
@@ -33,14 +33,21 @@
 		<p class="pre-price fr">已购{$detail.al_number}份，还剩<b class="orange-color">{$detail.number}</b>份</p>
 	</div>
 </div>
-<!--
-<div class="mall-goods-list"><h3 class="title">商品评价</h3></div>
-<div class="goods-info">
-	<h2>{$detail.name}</h2>
-	<div class="price">
-		衣服收到试了一下，很喜欢，大小合适，客服推荐的码数很准，美美哒，同事们都说好看，问在哪买的，很喜欢，大小合适，客服推荐的码数很准，美美哒，同事们都说好看，问在哪买的，一次满意的购物，还会再来的！真的一点色差都没有！超级满意哦！喜欢的亲赶紧拍吧！推荐哦！
+<!--商品评价-->
+<notempty name="detail.evalute">
+	<div class="mall-goods-list"><h3 class="title">商品评价</h3></div>
+	<volist name="detail.evalute" id="vo">
+	<div class="evalute-info">
+		<div class="evalute-user">
+			<img class="evalute-user-img" style="" src="__PUBLIC__/img/user.png">
+			<span class="evalute-user-name">{$vo.user}</span>
+		</div>
+		<div class="evalute-user-content">
+			{$vo.content}
+		</div>
 	</div>
-</div>-->
+	</volist>
+</notempty>
 <!-- 图文详情 -->
 <div class="mall-goods-list"><h3 class="title">商品详情</h3></div>
 <div class="detcon">
@@ -53,6 +60,13 @@
 		</volist>
 	</div>
 </div>
+
+<div class="mall-goods-list"><h3 class="title">联系客服</h3></div>
+<ul class="oy-list" style="margin-top:0;margin-bottom: 3rem">
+	<li>
+		<span>{$detail.support}</span>
+	</li>
+</ul>
 
 <div class="fixed-jf">
 	<gt name="detail.number" value="0">
