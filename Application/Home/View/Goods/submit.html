@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -13,9 +14,10 @@
 </head>
 <body>
 <div class="mall_header">
-    <a href="{:U('detail')}?id={$Think.get.id}"><img class='mall_header_img mall_header_img_left' src="__PUBLIC__/img/back.png" /></a>
+    <a href="{:U('detail')}?id={$Think.get.id}"><img class='mall_header_img mall_header_img_left'
+                                                     src="__PUBLIC__/img/back.png"/></a>
     <span class="mall_header_logo">偶遇商城</span>
-    <a href="{:U('Index/index')}"><img class='mall_header_img mall_header_img_right' src="__PUBLIC__/img/home.png" /></a>
+    <a href="{:U('Index/index')}"><img class='mall_header_img mall_header_img_right' src="__PUBLIC__/img/home.png"/></a>
 </div>
 <ul class="order-list" style="margin-top:-0.5rem">
     <li>
@@ -40,9 +42,9 @@
         <notempty name="detail.spe_value_1">
             <li>
                 <span>尺码</span>
-                <dl name="spe_value_1">
+                <dl id="spe_value_1">
                     <volist name="detail.spe_value_1" id="vo">
-                        <dd <eq name="key" value="0">class="sel"<else />class="normal"</eq>>{$vo}</dd>
+                        <dd class="spe <eq name='key' value='0'>sel<else />normal</eq>">{$vo}</dd>
                     </volist>
                 </dl>
             </li>
@@ -50,9 +52,9 @@
         <notempty name="detail.spe_value_2">
             <li>
                 <span>颜色</span>
-                <dl name="spe_value_2">
+                <dl id="spe_value_2">
                     <volist name="detail.spe_value_2" id="vo">
-                        <dd <eq name="key" value="0">class="sel"<else />class="normal"</eq>>{$vo}</dd>
+                        <dd class="spe <eq name='key' value='0'>sel<else />normal</eq>">{$vo}</dd>
                     </volist>
                 </dl>
             </li>
@@ -83,7 +85,7 @@
         <input type="hidden" name="id" value="{$detail.id}">
     </ul>
 </form>
-<div class="fixed-jf" style="position:relative;margin-top: 2rem">
+<div class="fixed-jf" style="position: inherit">
     <button href="javascript:;" class="oy-btn oy-orange-btn w100" onclick="ShowAblock()" id="dui-btn">下单</button>
 </div>
 <!-- 弹框 -->
@@ -121,8 +123,15 @@
 </script>
 
 <script>
+    $(function () {
+        $('.spe').on('click', function () {
+            if (!$(this).hasClass('sel')) {
+                $(this).addClass('sel').removeClass('normal');
+            }
+            $(this).siblings('.spe').removeClass('sel').addClass('normal');
+        })
+    })
     var al = document.getElementById('alert-block');
-    var bm = document.getElementById('dui-btn');
     function ShowAblock(msg) {
         al.style.display = "block";
     }
@@ -132,6 +141,9 @@
     function confirm_submit() {
         var url = $('#form').attr('action');
         var data = $('#form').serialize();
+        var spe_value_1 = $('#spe_value_1').find('.sel').html();
+        var spe_value_2 = $('#spe_value_2').find('.sel').html();
+        data += '&spe_value_1='+spe_value_1+'&spe_value_2='+spe_value_2;
         $.ajax({
             type: "post",
             url: url,
@@ -141,7 +153,7 @@
                 if (msg.ret == "0") {
                     alert('下单成功');
                     window.location.href = "{:U('Goods/detail')}?id={$Think.get.id}";
-                }else{
+                } else {
                     alert(msg.msg);
                 }
             }

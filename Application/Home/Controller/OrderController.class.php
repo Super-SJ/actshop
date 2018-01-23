@@ -41,9 +41,17 @@ class OrderController extends BaseController
     }
     public function create(){
         $this->form_check();
+        $goods_spe = '';
+        if(I('post.spe_value_1') != 'undefined'){
+            $goods_spe = I('post.spe_value_1') . ',';
+        }
+        if(I('post.spe_value_2')!='undefined'){
+            $goods_spe .= I('post.spe_value_2');
+        }
         $params = array(
             'order_sn' => time().mt_rand(1000000,9999999),
             'goods_id' => I('post.id'),
+            'goods_spe'=> $goods_spe,
             'number' => intval(I('post.number')),
             'customer_name' => I('post.customer_name'),
             'customer_phone' => I('post.customer_phone'),
@@ -62,6 +70,7 @@ class OrderController extends BaseController
         if($result){
             $this->ajaxReturn(array(
                 'ret'=>0,
+                'msg'=>$result
             ));
         }else{
             $this->ajaxReturn(array(

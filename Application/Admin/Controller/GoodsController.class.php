@@ -31,7 +31,7 @@ class GoodsController extends BaseController
         $detail = $model
             ->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')
             ->where('l_goods.id=' . I('get.id'))->field('l_goods.*,l_goods_picture.url,l_goods_picture.type')->select();
-        $arr_spe = M('GoodsSpe')->where('goods_id='.I('get.id'))->select();
+        $arr_spe = M('GoodsSpe')->where('goods_id='.I('get.id'))->order(array('value'))->select();
         foreach ($arr_spe as $v){
             if($v['type'] == 0){
                 $spe_value_1[] = $v['value'];
