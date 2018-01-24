@@ -30,6 +30,9 @@ class GoodsController extends BaseController
                 $spe_value_1[] = $v['value'];
             }else{
                 $spe_value_2[] = $v['value'];
+                $spe_value_picture[] = $v['url'];
+                $str_spe_value = implode(',',$spe_value_picture);
+                $this->assign('spe_value_picture',array($spe_value_picture,$str_spe_value));
             }
         }
         $detail = array_merge($detail,array_merge(array('spe_value_1'=>$spe_value_1,'spe_value_2'=>$spe_value_2)));

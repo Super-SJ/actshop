@@ -22,7 +22,11 @@
 <ul class="order-list" style="padding-top: 1.5rem">
     <li>
         <div class="con bobn">
-            <img src="__PUBLIC__/images/{$detail.url}">
+            <notempty name="spe_value_picture">
+                <img class="spe_picture" src="__PUBLIC__/images/{$spe_value_picture[0][0]}">
+                <else />
+                <img class="spe_picture" src="__PUBLIC__/images/{$detail.url}">
+            </notempty>
             <div class="des ells">
                 {$detail.name}
             </div>
@@ -54,7 +58,7 @@
                 <span>颜色</span>
                 <dl id="spe_value_2">
                     <volist name="detail.spe_value_2" id="vo">
-                        <dd class="spe <eq name='key' value='0'>sel<else />normal</eq>">{$vo}</dd>
+                        <dd class="spe_2 <eq name='key' value='0'>sel<else />normal</eq>" data-order ='{$key}'>{$vo}</dd>
                     </volist>
                 </dl>
             </li>
@@ -129,6 +133,16 @@
                 $(this).addClass('sel').removeClass('normal');
             }
             $(this).siblings('.spe').removeClass('sel').addClass('normal');
+        });
+        $('.spe_2').on('click', function () {
+            var spe_picture_value = '{$spe_value_picture[1]}';
+            spe_picture_value = spe_picture_value.split(',');
+            var path =  '__PUBLIC__/images/'+spe_picture_value[$(this).attr('data-order')];
+            if (!$(this).hasClass('sel')) {
+                $(this).addClass('sel').removeClass('normal');
+                $('.spe_picture').prop('src',path);
+            }
+            $(this).siblings('.spe_2').removeClass('sel').addClass('normal');
         })
     })
     var al = document.getElementById('alert-block');
