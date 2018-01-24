@@ -125,6 +125,7 @@ label{ display:block;overflow: hidden;}
 .goods-list .time,.goods-list .num{float: right;color:#999;}
 .goods-list .only{display: block;height: 1.4rem;background: #ff4c4c;color:#fff;font-size: .75rem;line-height: 1.4rem;text-align: center;}
 /* 商品详情 */
+.goods-banner{padding-top: 2rem}
 .goods-banner img{width: 100%;}
 .goods-info{padding:0 .5rem;padding-bottom: .5rem;position:relative;background: #fff;overflow: hidden;}
 .goods-info h5{color: #010101;font-size:.875rem;line-height: 1.6rem;padding:.5rem 0;}
@@ -188,6 +189,7 @@ label{ display:block;overflow: hidden;}
 .refresh-box{position: absolute;left: 50%;margin-left: -4rem;}
 #pullDown.hastab .loading,#pullDown.hastab .flip{margin-top: -.5rem;}
 /* 商城首页 */
+.mall-banner{padding-top: 2rem}
 .mall-banner img{width: 100%;}
 .mall-banner .swiper-pagination-switch{background: #c1c4c7;}
 .mall-banner .swiper-active-switch{background: #fff;box-shadow: rgba(0,0,0,0.2) 1px 1px 1px;}

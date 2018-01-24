@@ -52,6 +52,19 @@
                 </div>
             </div>
         </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">颜色SKU</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="photo3">上传</button><span style="padding-left: 5px">针对颜色规格的图片上传,没有颜色规格即可不用上传</span>
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list" id="demo3"></div>
+                    </blockquote>
+                </div>
+                <input id='photo_value3' type="hidden" name="photo_value3" value="">
+            </div>
+        </div>
         <div class="layui-form-item spe_type_2">
             <div cla="layui-inline">
                 <label class="layui-form-label">商品规格2</label>
@@ -63,20 +76,7 @@
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline" style="width: 250%;" >
-                    <input type="text" placeholder="多规格用英文逗号','隔开,例如黑色,白色.没有可不填" name="spe_value_2" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text evalute-div">
-            <label class="layui-form-label">评价   <i class="layui-btn layui-btn-sm layui-icon" id="evalute-add">&#xe654;</i></label>
-            <div cla="layui-inline">
-                <div class="layui-input-inline" style="width: 14%;">
-                    <input type="text" placeholder="用户名" name="evaluate_user[]" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <div class="layui-input-inline" style="width: 254%;">
-                    <textarea placeholder="评价内容" class="layui-textarea" name="evaluate_value[]"></textarea>
+                    <input type="text" placeholder="多规格用英文逗号','隔开,例如黑色,白色.需要相应图片请按顺序上传" name="spe_value_2" class="layui-input">
                 </div>
             </div>
         </div>
@@ -110,6 +110,19 @@
                     </blockquote>
                 </div>
                 <input id='photo_value2' type="hidden" name="photo_value2" value="">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text evalute-div">
+            <label class="layui-form-label">评价   <i class="layui-btn layui-btn-sm layui-icon" id="evalute-add">&#xe654;</i></label>
+            <div cla="layui-inline">
+                <div class="layui-input-inline" style="width: 14%;">
+                    <input type="text" placeholder="用户名" name="evaluate_user[]" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline" style="width: 254%;">
+                    <textarea placeholder="评价内容" class="layui-textarea" name="evaluate_value[]"></textarea>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
@@ -167,6 +180,25 @@
                     $('#photo_value2').val(value + res.src +",");
                 },error:function () {
                     $('#demo2').empty();
+                }
+            });
+
+            upload.render({
+                elem: '#photo3'
+                , url: '{:U("photo_upload")}'
+                , multiple: true
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo3').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                    });
+                }
+                , done: function (res) {
+                    //上传完毕
+                    var value = $('#photo_value3').val();
+                    $('#photo_value3').val(value + res.src +",");
+                },error:function () {
+                    $('#demo3').empty();
                 }
             });
         });

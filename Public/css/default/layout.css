@@ -120,6 +120,9 @@ transform: rotate(225deg);
 }
 
 .mall_header{
+    position: fixed;
+    width: 100%;
+    z-index: 50;
     text-align: center;
     height: 2rem;
     background-color: #F9F9F9
