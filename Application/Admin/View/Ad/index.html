@@ -18,7 +18,12 @@
                 <td><img style="max-width: 320px;" src="__PUBLIC__/images/{$vo.url}"></td>
                 <td>{$vo.href}</td>
                 <td>{$vo.order}</td>
-                <td><a href="{:U('edit')}?id={$vo.id}" class="layui-btn layui-btn-small">编辑</a><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-danger layui-btn-small delete">删除</button></td>
+                <td>
+                    <div class="layui-btn-group">
+                        <a href="{:U('edit')}?id={$vo.id}" class="layui-btn layui-btn-small">编辑</a>
+                        <button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-danger layui-btn-small delete">删除</button>
+                    </div>
+                </td>
             </tr>
         </volist>
         </tbody>
