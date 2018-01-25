@@ -125,14 +125,11 @@ transform: rotate(225deg);
     z-index: 50;
     text-align: center;
     height: 2rem;
-    background-color: #F9F9F9
+    background-color: #000000;
 }
-.mall_header_logo{
-    display: inline-block;
-    padding-top: 0.4rem;
-    font-family: '楷体';
-    font-weight: bolder;
-    font-size: 1.2rem;
+.mall_header img{
+    width: 80%;
+    height: 2rem;
 }
 .mall_header .mall_header_img{
     margin-top: 0.25rem;
