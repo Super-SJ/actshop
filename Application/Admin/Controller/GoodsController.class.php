@@ -54,7 +54,7 @@ class GoodsController extends BaseController
         $picture_value_0 = implode(',', $picture_0);
         $picture_value_1 = implode(',', $picture_1);
         $picture_value_3 = implode(',', $picture_3);
-        $detail = array_merge($detail[0], array('picture_0' => $picture_0), array('picture_1' => $picture_1),array('picture_3'=>$picture_3));
+        $detail = array_merge($detail[0], array('picture_0' => $picture_0), array('picture_1' => $picture_1), array('picture_3' => $picture_3));
         $detail['picture_value_0'] = $picture_value_0;
         $detail['picture_value_1'] = $picture_value_1;
         $detail['picture_value_3'] = $picture_value_3;
@@ -122,16 +122,18 @@ class GoodsController extends BaseController
             M('GoodsSpe')->addAll($arr_spe);
         }
         //评价开始
-        $evaluate_user = I('post.evaluate_user');
-        $evaluate_value = I('post.evaluate_value');
-        for ($i = 0; $i < count($evaluate_user); $i++) {
-            $evalute_data[] = array(
-                'user' => $evaluate_user[$i],
-                'content' => $evaluate_value[$i],
-                'goods_id' => $result
-            );
+        if (!empty(I('post.evaluate_user'))) {
+            $evaluate_user = I('post.evaluate_user');
+            $evaluate_value = I('post.evaluate_value');
+            for ($i = 0; $i < count($evaluate_user); $i++) {
+                $evalute_data[] = array(
+                    'user' => $evaluate_user[$i],
+                    'content' => $evaluate_value[$i],
+                    'goods_id' => $result
+                );
+            }
+            M('GoodsEvaluate')->addAll($evalute_data);
         }
-        M('GoodsEvaluate')->addAll($evalute_data);
         if ($result) {
             $this->success('添加成功', U('index'));
         } else {
@@ -188,15 +190,9 @@ class GoodsController extends BaseController
 
         //规格开始
         $spe_model = M('GoodsSpe');
-        //先删除
-        $data = $spe_model->where(array('goods_id' => I('post.id')))->select();
-        foreach ($data as $v){
-            if(!empty($v['url'])){
-                unlink('./Public/images/' . $v);
-            }
-        }
-        $spe_model->where(array('goods_id' => I('post.id')))->delete();
         if (!empty(I('post.spe_value_1'))) {
+            //尺码规格
+            $spe_model->where(array('goods_id' => I('post.id'), 'type' => 0))->delete();
             $spe_value_1 = explode(',', I('post.spe_value_1'));
             foreach ($spe_value_1 as $v) {
                 $arr_spe[] = array(
@@ -207,14 +203,19 @@ class GoodsController extends BaseController
                 );
             }
         }
-        if (!empty(I('post.spe_value_2'))) {
-            $spe_value_1 = explode(',', I('post.spe_value_2'));
+        if (!empty(I('post.photo_value3'))) {
+            $spe_value_2 = explode(',', I('post.spe_value_2'));
+            //先删除
+            $data = $spe_model->where(array('goods_id' => I('post.id'),'type' => 1))->select();
+            foreach ($data as $v) {
+                unlink('./Public/images/' . $v);
+            }
             $photo_value3 = explode(',', trim(I('post.photo_value3'), ','));
-            for ($i = 0; $i < count($spe_value_1); $i++) {
+            for ($i = 0; $i < count($spe_value_2); $i++) {
                 rename('./Public/temp/' . $photo_value3[$i], './Public/images/' . $photo_value3[$i]);
                 $arr_spe[] = array(
                     'type' => 1,
-                    'value' => $spe_value_1[$i],
+                    'value' => $spe_value_2[$i],
                     'url' => $photo_value3[$i],
                     'goods_id' => I('post.id')
                 );
@@ -226,16 +227,18 @@ class GoodsController extends BaseController
         //评价开始
         $eva_model = M('GoodsEvaluate');
         $eva_model->where(array('goods_id' => I('post.id')))->delete();
-        $evaluate_user = I('post.evaluate_user');
-        $evaluate_value = I('post.evaluate_value');
-        for ($i = 0; $i < count($evaluate_user); $i++) {
-            $evalute_data[] = array(
-                'user' => $evaluate_user[$i],
-                'content' => $evaluate_value[$i],
-                'goods_id' => I('post.id')
-            );
+        if (!empty(I('post.evaluate_user'))) {
+            $evaluate_user = I('post.evaluate_user');
+            $evaluate_value = I('post.evaluate_value');
+            for ($i = 0; $i < count($evaluate_user); $i++) {
+                $evalute_data[] = array(
+                    'user' => $evaluate_user[$i],
+                    'content' => $evaluate_value[$i],
+                    'goods_id' => I('post.id')
+                );
+            }
+            $eva_model->addAll($evalute_data);
         }
-        $eva_model->addAll($evalute_data);
         if ($result !== false) {
             $this->success('修改成功', U('index'));
         } else {
@@ -256,8 +259,8 @@ class GoodsController extends BaseController
             $photo_model->where('goods_id=' . I('get.id'))->delete();
             $spe_model = M('GoodsSpe');
             $data = $spe_model->where(array('goods_id' => I('get.id')))->select();
-            foreach ($data as $v){
-                if(!empty($v['url'])){
+            foreach ($data as $v) {
+                if (!empty($v['url'])) {
                     unlink('./Public/images/' . $v);
                 }
             }
