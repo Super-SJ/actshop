@@ -210,6 +210,7 @@ class GoodsController extends BaseController
             foreach ($data as $v) {
                 unlink('./Public/images/' . $v);
             }
+            $spe_model->where(array('goods_id' => I('post.id'), 'type' => 1))->delete();
             $photo_value3 = explode(',', trim(I('post.photo_value3'), ','));
             for ($i = 0; $i < count($spe_value_2); $i++) {
                 rename('./Public/temp/' . $photo_value3[$i], './Public/images/' . $photo_value3[$i]);
