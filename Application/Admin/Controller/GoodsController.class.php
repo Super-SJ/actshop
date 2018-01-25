@@ -228,7 +228,7 @@ class GoodsController extends BaseController
         //评价开始
         $eva_model = M('GoodsEvaluate');
         $eva_model->where(array('goods_id' => I('post.id')))->delete();
-        if (!empty(I('post.evaluate_user'))) {
+        if (!empty(array_filter(I('post.evaluate_user')))) {
             $evaluate_user = I('post.evaluate_user');
             $evaluate_value = I('post.evaluate_value');
             for ($i = 0; $i < count($evaluate_user); $i++) {

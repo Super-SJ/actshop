@@ -1,4 +1,12 @@
 <extend name="Public:base" />
+<block name="css">
+    <style>
+        .evalute-del{
+            margin-left: 290px;
+            margin-top: -70px
+        }
+    </style>
+</block>
 <block name="main">
     <form class="layui-form" action="{:U('update')}" method="post">
         <div class="layui-form-item">
@@ -144,6 +152,9 @@
                             <textarea placeholder="评价内容" class="layui-textarea" name="evaluate_value[]">{$vo.content}</textarea>
                         </div>
                     </div>
+                    <gt name="key" value="0">
+                        <i class="layui-btn layui-btn-danger layui-btn-sm layui-icon evalute-del">&#x1006;</i>
+                    </gt>
                 </div>
             </volist>
             <else />
@@ -174,7 +185,10 @@
     <script>
         $(function () {
             $('#evalute-add').on('click',function () {
-                $('.evalute-div:last').after('<div class="layui-form-item layui-form-text evalute-div"><label class="layui-form-label"></label><div cla="layui-inline"><div class="layui-input-inline" style="width: 14%;"> <input type="text" placeholder="用户名" name="evaluate_user[]" class="layui-input"> </div> </div> <div class="layui-inline"> <div class="layui-input-inline" style="width: 254%;" >  <textarea placeholder="评价内容" class="layui-textarea" name="evaluate_value[]"></textarea> </div> </div> </div>');
+                $('.evalute-div:last').after('<div class="layui-form-item layui-form-text evalute-div"><label class="layui-form-label"></label><div cla="layui-inline"><div class="layui-input-inline" style="width: 14%;"> <input type="text" placeholder="用户名" name="evaluate_user[]" class="layui-input"> </div> </div> <div class="layui-inline"> <div class="layui-input-inline" style="width: 254%;" >  <textarea placeholder="评价内容" class="layui-textarea" name="evaluate_value[]"></textarea> </div> </div><i class="layui-btn layui-btn-danger layui-btn-sm layui-icon evalute-del">&#x1006;</i></div>');
+            });
+            $(document).on('click','.evalute-del',function () {
+                $(this).parents('.evalute-div').remove();
             })
         })
         layui.use('upload', function() {
