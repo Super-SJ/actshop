@@ -134,6 +134,7 @@ class GoodsController extends BaseController
             }
             M('GoodsEvaluate')->addAll($evalute_data);
         }
+        sleep(2);
         if ($result) {
             $this->success('添加成功', U('index'));
         } else {
@@ -240,6 +241,7 @@ class GoodsController extends BaseController
             }
             $eva_model->addAll($evalute_data);
         }
+        sleep(2);
         if ($result !== false) {
             $this->success('修改成功', U('index'));
         } else {
