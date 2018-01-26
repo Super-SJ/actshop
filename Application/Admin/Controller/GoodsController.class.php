@@ -161,9 +161,6 @@ class GoodsController extends BaseController
             //先删除
             $photo_model->where(array('goods_id' => I('post.id'), 'type' => 0))->delete();
             $picture_value_0 = explode(',', I('post.picture_value_0'));
-            foreach ($picture_value_0 as $v) {
-                unlink('./Public/images/' . $v);
-            }
             //后添加
             $photo_value1 = explode(',', trim(I('post.photo_value1'), ','));
             foreach ($photo_value1 as $v) {
@@ -175,9 +172,6 @@ class GoodsController extends BaseController
             //先删除
             $photo_model->where(array('goods_id' => I('post.id'), 'type' => 1))->delete();
             $picture_value_1 = explode(',', I('post.picture_value_1'));
-            foreach ($picture_value_1 as $v) {
-                unlink('./Public/images/' . $v);
-            }
             //后添加
             $photo_value2 = explode(',', trim(I('post.photo_value2'), ','));
             foreach ($photo_value2 as $v) {
@@ -208,9 +202,6 @@ class GoodsController extends BaseController
             $spe_value_2 = explode(',', I('post.spe_value_2'));
             //先删除
             $data = $spe_model->where(array('goods_id' => I('post.id'),'type' => 1))->select();
-            foreach ($data as $v) {
-                unlink('./Public/images/' . $v);
-            }
             $spe_model->where(array('goods_id' => I('post.id'), 'type' => 1))->delete();
             $photo_value3 = explode(',', trim(I('post.photo_value3'), ','));
             for ($i = 0; $i < count($spe_value_2); $i++) {
@@ -256,17 +247,9 @@ class GoodsController extends BaseController
         if (I('get.status') == 2) {
             $photo_model = M('GoodsPicture');
             $list = $photo_model->where('goods_id=' . I('get.id'))->select();
-            foreach ($list as $v) {
-                unlink('./Public/images/' . $v['url']);
-            }
             $photo_model->where('goods_id=' . I('get.id'))->delete();
             $spe_model = M('GoodsSpe');
             $data = $spe_model->where(array('goods_id' => I('get.id')))->select();
-            foreach ($data as $v) {
-                if (!empty($v['url'])) {
-                    unlink('./Public/images/' . $v);
-                }
-            }
             $spe_model->where('goods_id=' . I('get.id'))->delete();
         }
         if ($result !== false) {

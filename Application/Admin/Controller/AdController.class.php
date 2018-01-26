@@ -61,7 +61,6 @@ class AdController extends BaseController
         if(!empty(I('post.photo_value1'))){
             //先删除
             $picture_value_0 = I('post.picture_value_0');
-            unlink('./Public/images/'.$picture_value_0);
             //后添加
             $photo_value1 = trim(I('post.photo_value1'),',');
             rename('./Public/temp/'.$photo_value1,'./Public/images/'.$photo_value1);
@@ -79,7 +78,6 @@ class AdController extends BaseController
     {
         $model = M('AdPicture');
         $detail = $model->where('id=' . I('get.id'))->find();
-        unlink('./Public/images/'.$detail['url']);
         $result = $model->where('id=' . I('get.id'))->delete();
         if ($result!==false) {
             $this->success('操作成功', U('index'));
