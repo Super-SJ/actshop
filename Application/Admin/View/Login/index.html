@@ -71,10 +71,6 @@
     };
 
     $(function () {
-        if (window.location.href.indexOf("www.") != -1) {
-            window.location.href = window.location.href.replace("www.", "");
-        }
-
         $("#company_code").on('change keyup', function () {
             if ($.trim($(this).val()).length == 0) {
                 $("#wx_btn").attr("disabled", true);
