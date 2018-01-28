@@ -13,7 +13,14 @@ class GoodsController extends BaseController
     public function index()
     {
         $model = M('Goods');
-        $list = $model->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')->where(array('l_goods.status' => array('neq', 2), 'l_goods_picture.type' => 0))->group('l_goods.id')->field('l_goods.*,l_goods_picture.url')->select();
+        $where = array(
+            'l_goods.status'=>array('neq', 2),
+            'l_goods_picture.type' => 0
+        );
+        if(I('get.goods_name')){
+            $where['l_goods.name'] = array('like','%'.I('get.goods_name').'%');
+        }
+        $list = $model->join('LEFT JOIN l_goods_picture on l_goods.id = l_goods_picture.goods_id')->where($where)->group('l_goods.id')->field('l_goods.*,l_goods_picture.url')->select();
         foreach ($list as &$v) {
             $v['status'] = $this->status[$v['status']];
         }

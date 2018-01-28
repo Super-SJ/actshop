@@ -1,5 +1,39 @@
-<extend name="Public:base" />
+<extend name="Public:base"/>
 <block name="main">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">订单状态</label>
+                <div class="layui-input-inline">
+                    <select class="layui-select" name="status">
+                        <option value="0">待发货</option>
+                        <option value="1">已发货</option>
+                        <option value="2">已签收</option>
+                        <option value="3">已作废</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">商品名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="goods_name"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">顾客姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="customer_name" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">顾客电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="customer_phone"  class="layui-input">
+                </div>
+            </div>
+            <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+        </div>
+    </form>
     <table class="layui-table">
         <thead>
         <tr>
@@ -29,7 +63,19 @@
                 <td>{$vo.create_time}</td>
                 <td>
                     <div class="layui-btn-group">
-                        <neq name="vo.status" value="已作废"><eq name="vo.status" value="待发货"><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small send">发货</button></eq><eq name="vo.status" value="已发货"><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small receive">签收</button></eq><button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-danger layui-btn-small delete">作废</button></neq>
+                        <neq name="vo.status" value="已作废">
+                            <eq name="vo.status" value="待发货">
+                                <button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small send">发货
+                                </button>
+                            </eq>
+                            <eq name="vo.status" value="已发货">
+                                <button type="button" data-id="{$vo.id}" class="layui-btn layui-btn-small receive">签收
+                                </button>
+                            </eq>
+                            <button type="button" data-id="{$vo.id}"
+                                    class="layui-btn layui-btn-danger layui-btn-small delete">作废
+                            </button>
+                        </neq>
                     </div>
                 </td>
             </tr>
@@ -40,22 +86,22 @@
 <block name="js">
     <script>
         $(function () {
-            $('.send').on('click',function () {
+            $('.send').on('click', function () {
                 var id = $(this).attr('data-id');
-                layer.confirm('发货该订单？',function () {
-                    window.location.href = "{:U('update_status')}?status=1&id="+id;
+                layer.confirm('发货该订单？', function () {
+                    window.location.href = "{:U('update_status')}?status=1&id=" + id;
                 });
             })
-            $('.receive').on('click',function () {
+            $('.receive').on('click', function () {
                 var id = $(this).attr('data-id');
-                layer.confirm('签收该订单？',function () {
-                    window.location.href = "{:U('update_status')}?status=2&id="+id;
+                layer.confirm('签收该订单？', function () {
+                    window.location.href = "{:U('update_status')}?status=2&id=" + id;
                 });
             });
-            $('.delete').on('click',function () {
+            $('.delete').on('click', function () {
                 var id = $(this).attr('data-id');
-                layer.confirm('是否作废该订单',function () {
-                    window.location.href = "{:U('update_status')}?status=3&id="+id;
+                layer.confirm('是否作废该订单', function () {
+                    window.location.href = "{:U('update_status')}?status=3&id=" + id;
                 });
             });
         })

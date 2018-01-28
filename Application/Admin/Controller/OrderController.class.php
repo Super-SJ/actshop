@@ -13,7 +13,20 @@ class OrderController extends BaseController
     public function index()
     {
         $model = M('Order');
-        $list = $model->join('LEFT JOIN l_goods ON l_order.goods_id = l_goods.id')->field('l_order.*,l_goods.name')->select();
+        $where = array();
+        if(I('get.goods_name')){
+            $where['l_goods.name'] = array('like','%'.I('get.goods_name').'%');
+        }
+        if(I('get.customer_name')){
+            $where['l_order.customer_name'] = array('like','%'.I('get.customer_name').'%');
+        }
+        if(I('get.customer_phone')){
+            $where['l_order.customer_phone'] = array('like','%'.I('get.customer_phone').'%');
+        }
+        if(I('get.status')){
+            $where['l_order.status'] = I('get.status');
+        }
+        $list = $model->join('LEFT JOIN l_goods ON l_order.goods_id = l_goods.id')->where($where)->field('l_order.*,l_goods.name')->select();
         foreach ($list as &$v){
             $v['status'] = $this->status[$v['status']];
             $v['create_time'] = date('Y-m-d H:i:s',$v['create_time']);

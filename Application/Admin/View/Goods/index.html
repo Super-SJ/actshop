@@ -1,6 +1,17 @@
 <extend name="Public:base" />
 <block name="main">
-    <a class="layui-btn" href="{:U('add')}">新增商品</a>
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">商品名称</label>
+                <div class="layui-input-inline">
+                    <input name="goods_name"  class="layui-input">
+                </div>
+            </div>
+            <button class="layui-btn" lay-submit lay-filter="formDemo">搜索</button>
+            <a class="layui-btn" href="{:U('add')}">新增商品</a>
+        </div>
+    </form>
     <table class="layui-table">
         <thead>
         <tr>
