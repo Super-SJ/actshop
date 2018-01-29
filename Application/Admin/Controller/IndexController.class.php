@@ -10,4 +10,14 @@ class IndexController extends BaseController
         $this->display();
     }
 
+    public function test(){
+        $model = M('GoodsPicture');
+        $list = $model->select();
+        foreach ($list as $v){
+            $result = getimagesize('./Public/images/' . $v['url']);
+            $width = ($result[0]/2);
+            $height = ($result[1]/2);
+            Img('./Public/images/' . $v['url'], $width, $height, 1);
+        }
+    }
 }
